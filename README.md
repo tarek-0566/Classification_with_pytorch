@@ -90,7 +90,7 @@ To use the code, follow these steps:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/pytorch-circle-classification.git
+    git clone https://github.com/tarek-0566/Classification_with_pytorch.git
     ```
 
 2. Install dependencies:
