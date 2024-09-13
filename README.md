@@ -1,87 +1,98 @@
-Classification with PyTorch
+PyTorch Circle Classification Model
 
-This repository contains code and explanations for building classification models using PyTorch. The goal is to guide you through the steps involved in preparing data, building models (including non-linear models), and evaluating their performance. We also cover multi-class classification, non-linear activation functions, and key classification metrics.
+This repository contains code for building and training a neural network using PyTorch to classify circular patterns from synthetic data. The project demonstrates the following key aspects of machine learning and deep learning:
+
+    Data preparation and visualization.
+    Model building with torch.nn.Module and torch.nn.Sequential.
+    Forward pass, backward propagation, and gradient descent.
+    Model evaluation using classification metrics such as accuracy.
+    Visualizing decision boundaries.
+
 Table of Contents
 
-Data Preparation
-    1.1 Check input and output shapes
-    Turn data into tensors and create train and test splits
+    Project Overview
+    Dependencies
+    Dataset
+    Model Architecture
+    Training
+    Evaluation
+    Usage
+    Future Improvements
 
-Building a Model
-    2.1 Setup loss function and optimizer
-    Train model
-    Make predictions and evaluate the model
+Project Overview
 
-Training a Model on Linear Data
-    5.1 Preparing data to see if our model can fit a straight line
-    Understand limitations of fitting linear models to non-linear data
+This project demonstrates binary classification using a synthetic dataset (make_circles) generated with scikit-learn. It showcases the following stages:
 
-The Missing Piece: Non-Linearity
-    6.1 Recreating non-linear data (red and blue circles)
-    6.2 Building a model with non-linearity
-    6.3 Training a model with non-linearity
-    6.4 Evaluating a model trained with a non-linear activation function
+    Data Generation and Visualization: Create a dataset of concentric circles using make_circles.
+    Neural Network Construction: Build a neural network with multiple hidden layers and non-linear activation functions.
+    Training: Use a binary cross-entropy loss function and stochastic gradient descent optimizer to train the model.
+    Evaluation: Assess the model's performance using accuracy and visualize its decision boundary.
+    Extending to Multi-Class Classification: Demonstrate how the techniques scale to multi-class classification using blobs data.
 
-Replicating Non-Linear Activation Functions
-    Explore how non-linear activation functions help model more complex patterns.
+Dependencies
 
-Multi-Class Classification with PyTorch
-    8.1 Overview of multi-class classification
-    8.2 Building a multi-class classification model in PyTorch
-    8.3 Creating a loss function and optimizer for a multi-class classification model
-    8.4 Getting prediction probabilities for a multi-class PyTorch model
-    8.5 Creating a training loop and testing loop for a multi-class PyTorch model
-    8.6 Making and evaluating predictions with a PyTorch multi-class model
+Before running the code, ensure you have the following packages installed:
+pip install torch torchvision matplotlib pandas scikit-learn
+Optional:
+pip install torchmetrics
+Dataset
 
-Classification Metrics
-    A few more classification metrics for evaluating model performance, including accuracy, precision, recall, and F1 score.
+    Binary Classification:
+        The dataset is created using make_circles, generating two classes of data (inner and outer circles).
+        Data is split into training and test sets using train_test_split.
 
-Getting Started
-Prerequisites
+    Multi-Class Classification:
+        A multi-class dataset is generated using make_blobs with 4 clusters and split into training and test sets.
 
-    Python 3.10
-    PyTorch installed (torch and torchvision)
-    Additional Python libraries: numpy, matplotlib, sklearn
+Model Architecture
 
-You can install the required libraries by running:
-    pip install torch torchvision numpy matplotlib scikit-learn
+    Binary Classification Model:
+        Two neural networks are constructed, one using nn.Module and another with nn.Sequential.
+        The models contain the following layers:
+            Input layer: 2 features (from circle data).
+            Hidden layers: ReLU activation functions to introduce non-linearity.
+            Output layer: 1 output for binary classification.
 
-Running the Project
-To run the project, follow these steps:
+    Multi-Class Classification Model:
+        The multi-class model has:
+            Input layer: 2 features.
+            Hidden layers: ReLU activation and linear layers.
+            Output layer: 4 outputs (for 4 classes).
 
-Clone the repository:
-    git clone [https://github.com/tarek-0566/Classification_with_pytorch/]
-    cd classification-with-pytorch
+Training
 
-Prepare your data:
+The model is trained using the following steps:
 
-    The script will automatically create and split datasets for training and testing.
+    Forward Pass: The input data is passed through the layers of the neural network.
+    Loss Calculation: The loss is computed using BCELoss or BCEWithLogitsLoss for binary classification and CrossEntropyLoss for multi-class classification.
+    Backpropagation: Gradients are calculated via loss.backward().
+    Optimizer Step: The optimizer (SGD) updates the model weights.
 
-Run the model training:
-    python train.py
+Training is conducted over 1000 epochs for binary classification and 100 epochs for multi-class classification.
+Evaluation
 
-Evaluate the model:
-    The evaluation results, including classification metrics and loss, will be printed in the console after training.
+The evaluation includes:
 
-Code Structure
+    Accuracy Calculation: Use a custom accuracy function to calculate the percentage of correct predictions.
+    Decision Boundary Visualization: The decision boundaries of both the training and testing datasets are visualized.
+    Prediction Probabilities: For multi-class classification, prediction probabilities are calculated using torch.softmax().
 
-    data/: Contains the data and any relevant pre-processing scripts.
-    models/: Contains the neural network models for linear and non-linear classification tasks.
-    train.py: Main script to train and evaluate the models.
-    utils.py: Helper functions for data manipulation, metric calculations, and visualization.
+Usage
 
-Results
+To use the code, follow these steps:
 
-    Linear Model: Fitting simple linear data to see how the model performs.
-    Non-Linear Model: Exploring non-linear activation functions (like ReLU) to better capture complex patterns in data.
-    Multi-Class Classification: Implementing a PyTorch model for multi-class problems with appropriate loss functions (e.g., CrossEntropyLoss).
+    Clone the repository:
+    git clone https://github.com/yourusername/pytorch-circle-classification.git
+Install dependencies:
+pip install -r requirements.txt
+Run the script:
+python main.py
+    Observe the outputs and visualizations:
+        The accuracy, loss, and decision boundaries will be printed and plotted as the training progresses.
 
-Conclusion
+Future Improvements
 
-Through this project, you will gain hands-on experience with:
-
-    Preparing data for classification.
-    Building and training models in PyTorch.
-    Handling both linear and non-linear data.
-    Implementing and evaluating multi-class classification models.
-    Using classification metrics to evaluate performance.
+    Add more advanced optimization algorithms: Incorporate optimizers like Adam or RMSprop for faster convergence.
+    Experiment with different architectures: Add more hidden layers or different types of activation functions like tanh.
+    Add early stopping: Implement early stopping to avoid overfitting.
+    Improve evaluation metrics: Use additional metrics such as F1 Score, Precision, and Recall for a more thorough evaluation.
